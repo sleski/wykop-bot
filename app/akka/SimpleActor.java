@@ -8,6 +8,6 @@ import akka.actor.AbstractLoggingActor;
 public class SimpleActor extends AbstractLoggingActor {
 
 	public SimpleActor() {
-		super();
+
 	}
 }
