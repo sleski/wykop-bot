@@ -5,6 +5,7 @@ import akka.actor.ExtendedActorSystem;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provider;
 import com.typesafe.akka.extension.quartz.QuartzSchedulerExtension;
+import example.MyUntypedActor;
 import play.libs.akka.AkkaGuiceSupport;
 
 import javax.inject.Inject;
@@ -18,6 +19,7 @@ public class ScheduledJobsModule extends AbstractModule implements AkkaGuiceSupp
 
 	@Override
 	protected void configure() {
+		bindActor(MyUntypedActor.class, MyUntypedActor.ACTOR_NAME);
 		bind(QuartzSchedulerHelper.class).asEagerSingleton();
 		bind(QuartzSchedulerExtension.class).toProvider(SchedulerJobInitializer.class);
 	}

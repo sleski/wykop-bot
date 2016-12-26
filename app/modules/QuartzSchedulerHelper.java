@@ -26,12 +26,11 @@ public class QuartzSchedulerHelper {
 	public QuartzSchedulerHelper(QuartzSchedulerExtension quartzSchedulerExtension, Configuration configuration) {
 
 		final ActorSystem system = ActorSystem.create("MyTestActor");
-		final ActorRef myActor = system.actorOf(Props.create(MyUntypedActor.class), "myactor");
+		final ActorRef myActor = system.actorOf(Props.create(MyUntypedActor.class), MyUntypedActor.ACTOR_NAME);
 		Configuration config = configuration.getConfig(SCHEDULED_JOB_CONFIG_PATH);
 		config.asMap().entrySet().stream().forEach(confguEntry -> {
 			String jobName = confguEntry.getKey();
 			Configuration jobConfig = config.getConfig(jobName);
-			System.out.println(jobConfig.getString("expression"));
 			schedule(jobName, jobConfig, quartzSchedulerExtension, myActor);
 		});
 	}
@@ -40,6 +39,5 @@ public class QuartzSchedulerHelper {
 		Preconditions.checkArgument(jobDispatcher != null, "Job executor not found! Job name = %s", jobName);
 		quartzSchedulerExtension.schedule(jobName, jobDispatcher, jobConfig);
 		LOG.info("Job {} scheduled, jobDispatcher.path() = {}.", jobName, jobDispatcher.path());
-		System.out.println("===============");
 	}
 }

@@ -20,5 +20,4 @@ public class IntegrationTest {
 			assertTrue(browser.pageSource().contains("Wykop-bot is running!"));
 		});
 	}
-
 }
